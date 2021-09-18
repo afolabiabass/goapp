@@ -1,0 +1,59 @@
+consumes:
+- application/json
+info:
+  description: HTTP server in Go with Swagger endpoints definition.
+  title: goapp-api
+  version: 0.1.0
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"
+
+paths:
+  /status:
+    get:
+      operationId: checkHealth
+      produces:
+      - text/plain
+      responses:
+        '200':
+          description: OK message.
+          schema:
+            type: string
+            enum:
+            - OK
+
+  /users/{user}:
+    get:
+      description: Returns the user!
+      parameters:
+        - name: user
+          in: path
+          type: string
+          required: true
+          description: The name of the user to greet.
+      responses:
+        200:
+          description: Returns the user data.
+          schema:
+            type: string
+        400:
+          description: Invalid characters in "user" were provided.
+
+  /users/{user}/avatar:
+    get:
+      description: Return the users Image.
+      produces:
+      - image/png
+      parameters:
+        - name: user
+          in: path
+          type: string
+          required: true
+          description: The user id to retrieve image.
+      responses:
+        200:
+          description: Returns the image.
+          schema:
+            type: file
